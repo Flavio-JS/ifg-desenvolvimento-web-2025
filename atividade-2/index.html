@@ -9,11 +9,9 @@
 </head>
 
 <body class="bg-gray-800 p-6">
-  <div class="flex justify-center gap-4">
-    <h1 class="text-3xl text-white font-bold text-center mb-4">
-      D&D Monster List
-    </h1>
-  </div>
+  <h1 class="text-3xl text-white font-bold text-center mb-4">
+    D&D Monster List
+  </h1>
 
   <div class="flex justify-center gap-4 mb-4">
     <input id="search-input" type="text" placeholder="Search monster..."
@@ -78,6 +76,13 @@
           name: data.name,
           size: data.size,
           type: data.type,
+          hit_points: data.hit_points,
+          strength: data.strength,
+          dexterity: data.dexterity,
+          constitution: data.constitution,
+          intelligence: data.intelligence,
+          wisdom: data.wisdom,
+          charisma: data.charisma
         };
 
         monsterCache[index] = monsterData;
@@ -134,29 +139,59 @@
       const card = document.createElement("div");
       card.classList.add(
         "bg-gray-700", "p-6", "rounded-lg", "shadow-md",
-        "transition", "hover:shadow-lg", "flex",
-        "flex-col", "items-center", "w-74", "h-74"
+        "transition", "hover:shadow-lg", "flex", "flex-col",
+        "items-center", "w-80", "h-auto", "gap-4"
       );
 
       card.setAttribute("data-monster", details.index);
       card.setAttribute("data-page", page);
 
       const imageElement = details.image
-        ? `<img src="${details.image}" alt="${details.name}" class="w-40 h-40 max-w-40 max-h-40 object-contain rounded-md mb-4">`
-        : `<div class="w-40 h-40 max-w-40 max-h-40 bg-gray-300 rounded-md mb-4 flex items-center justify-center text-center text-gray-600">No Image</div>`;
+        ? `<img src="${details.image}" alt="${details.name}" class="w-40 h-40 object-contain rounded-md">`
+        : `<div class="w-40 h-40 bg-gray-300 rounded-md flex items-center justify-center text-gray-600">No Image</div>`;
 
       card.innerHTML = `
         ${imageElement}
-        <h2 class="text-xl font-bold text-white text-center">${details.name}</h2>
-        <p class="text-white text-center">Size: ${details.size}</p>
-        <p class="text-white text-center">Type: ${details.type}</p>
+          <h2 class="text-xl font-bold text-white text-center">${details.name}</h2>
+          <p class="text-white text-center">Size: ${details.size || "Unknown"} | Type: ${details.type || "Unknown"}</p>
+
+          <div class="w-full text-red-800 text-center">
+            <p class="font-bold">HP</p>
+            <p class="w-full bg-red-800 text-white border rounded-md">${details.hit_points || "?"}</p>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 text-white text-center">
+            <div>
+              <p class="font-bold text-red-500">STR</p>
+              <p>${details.strength || "?"}</p>
+            </div>
+            <div>
+              <p class="font-bold text-green-800">DEX</p>
+              <p>${details.dexterity || "?"}</p>
+            </div>
+            <div>
+              <p class="font-bold text-orange-600">CON</p>
+              <p>${details.constitution || "?"}</p>
+            </div>
+            <div>
+              <p class="font-bold text-blue-800">INT</p>
+              <p>${details.intelligence || "?"}</p>
+            </div>
+            <div>
+              <p class="font-bold text-purple-900">WIS</p>
+              <p>${details.wisdom || "?"}</p>
+            </div>
+            <div>
+              <p class="font-bold text-amber-500">CHA</p>
+              <p>${details.charisma || "?"}</p>
+            </div>
+          </div>
       `;
 
       card.style.display = "none";
-
       return card;
     }
-
+    
     function updatePagination() {
       const pageInfo = document.getElementById("page-info");
       const prevButton = document.getElementById("prev-page");
