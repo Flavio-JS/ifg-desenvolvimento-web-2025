@@ -1,0 +1,27 @@
+div.card-template {
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+    padding: 15px;
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+div.meeting-card {
+    max-width: 100%;
+}
+
+@media (min-width: 1200px) {
+    div.meeting-card {
+        max-width: 500px;
+    }
+}
+
+@media (min-width: 680px) {
+    div.card-template {
+        min-width: 291px;
+    }
+}
